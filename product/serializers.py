@@ -39,7 +39,7 @@ class ProductReviewSerializer(serializers.ModelSerializer):
     rating = serializers.FloatField(read_only=True)
     class Meta:
         model = Product
-        fields = ['id', 'title', 'price', 'rating', 'reviews']
+        fields = '__all__'
 
 
 
