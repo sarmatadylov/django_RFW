@@ -98,7 +98,7 @@ def product_list_api_view(request):
 
 
 
-@api_view(['GET' 'PUT', 'DELETE'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def product_detail_api_view(request, id):
     try:
         product = Product.objects.get(id=id)
@@ -154,7 +154,7 @@ def review_list_api_view(request):
 
 
 
-@api_view(['GET' 'PUT', 'DELETE'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def review_detail_api_view(request, id):
     try:
         review = Review.objects.get(id=id)
@@ -169,7 +169,7 @@ def review_detail_api_view(request, id):
         review.name = request.data.get('name')
         review.save()
         return Response(status=status.HTTP_201_CREATED,
-                        data=CategorySerializer(review).data)
+                        data=ReviewSerializer(review).data)
     elif request.method == 'DELETE':
         review.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
