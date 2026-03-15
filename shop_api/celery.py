@@ -3,6 +3,7 @@ import os
 from celery import Celery
 from celery.beat import crontab
 
+
 # Set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'shop_api.settings')
 
@@ -16,3 +17,17 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Load task modules from all registered Django apps.
 app.autodiscover_tasks()
+
+app.conf.beat_schedule = {
+    "todo_homework": {
+        "task": "users.tasks.todo_homework",
+        "schedule": crontab(minute="*/5")
+    }
+}
+
+app.conf.beat_schedule = {
+    "delete-users-every-night": {
+        "task": "users.tasks.delete_inactive_users",
+        "schedule": crontab(hour=3, minute=0),
+    },
+}

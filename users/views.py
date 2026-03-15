@@ -11,11 +11,10 @@ from . import utils
 from .serializers import ( RegisterValidateSerializer,AuthValidateSerializer,ConfirmationSerializer)
 
 from users.models import CustomUser
-import random
-import string
 
 from users import serializers
 from rest_framework_simplejwt.views import TokenObtainPairView
+from users.tasks import add, send_otp_email
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = serializers.CustomTokenObtainPairSerializer
@@ -50,6 +49,7 @@ class RegistrationAPIView(CreateAPIView):
     serializer_class = RegisterValidateSerializer
 
     def post(self, request, *args, **kwargs):
+        add.delay(2,2)
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -64,6 +64,8 @@ class RegistrationAPIView(CreateAPIView):
         print("Code generated and saved to cache.")
 
         print(f'Код подтверждения для пользователя {email}: {code}')  # Для отладки
+
+        send_otp_email.delay(email, code)
 
         return Response(
             {'user_id': user.id, 'detail': 'Пользователь создан. Проверьте код подтверждения.'},

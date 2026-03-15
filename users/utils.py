@@ -5,7 +5,7 @@ PREFIX = "confitmation_code"
 TTL = 300 #5 min
 
 def _key(email):
-    return  f"{PREFIX}{email}"
+    return  f"{PREFIX}:{email}"
 
 def generate_confirmation_code():
     code = ''.join([str(random.randint(0, 9)) for _ in range(10)])
