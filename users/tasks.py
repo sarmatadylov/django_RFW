@@ -43,6 +43,7 @@ def todo_homework():
 @shared_task
 def save_random_number():
     number = random.randint(1, 100)
+    save_random_number.delay()
     print(f"Сгенерированное число: {number}")
     return number
 

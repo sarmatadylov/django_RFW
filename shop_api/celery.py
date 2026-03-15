@@ -26,8 +26,15 @@ app.conf.beat_schedule = {
 }
 
 app.conf.beat_schedule = {
-    "delete-users-every-night": {
-        "task": "users.tasks.delete_inactive_users",
+    "clear-temp-every-night": {
+        "task": "users.tasks.clear_temp_data",
         "schedule": crontab(hour=3, minute=0),
+    },
+}
+
+app.conf.beat_schedule = {
+    "send-daily-email": {
+        "task": "users.tasks.send_daily_email",
+        "schedule": crontab(hour=9, minute=0),  # каждый день в 09:00
     },
 }

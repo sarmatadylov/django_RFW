@@ -181,5 +181,7 @@ CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/3"
 EMAIL_USE_TLS=True
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT=587
-EMAIL_HOST_USER = "sarmatadylov05@gmail.com"
-EMAIL_HOST_PASSWORD = "npnj vikg hunk xicx"
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
+
