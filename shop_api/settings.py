@@ -9,10 +9,11 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 import config
+from decouple import Config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -91,10 +92,22 @@ WSGI_APPLICATION = 'shop_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
+
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
 
 
 # Password validation
@@ -167,7 +180,7 @@ SIMPLE_JWT = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": config("REDIS_CACHE"),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "SERIALIZER": "django_redis.serializers.json.JSONSerializer",
@@ -175,13 +188,14 @@ CACHES = {
     }
 }
 
-CELERY_BROKER_URL = "redis://127.0.0.1:6379/3"
-CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/3"
+CELERY_BROKER_URL=config("CELERY_BROKER_URL")
+CELERY_RESULT_BACKEND=config("CELERY_RESULT_BACKEND")
 
 EMAIL_USE_TLS=True
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT=587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = ""
-EMAIL_HOST_PASSWORD = ""
+EMAIL_HOST_USER=config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD=config("EMAIL_HOST_PASSWORD")
+
 

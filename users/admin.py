@@ -37,9 +37,9 @@ class CustomUserAdmin(admin.ModelAdmin):
     )
 
     #def save_model(self, request, obj, form, change):
-        #super().save_model(request, obj, form, change)
-        #if not change:
-            #ConfirmationCode.objects.create(user=obj)
+    #    super().save_model(request, obj, form, change)
+     #   if not change:
+      #      ConfirmationCode.objects.create(user=obj)
 
 
 #@admin.register(ConfirmationCode)
