@@ -11,6 +11,7 @@ click-plugins==1.1.1.2
 click-repl==0.3.0
 config==0.5.1
 Django==6.0.3
+django-cors-headers==4.9.0
 django-jazzmin==3.0.3
 django-redis==6.0.0
 django-stubs==5.2.9
@@ -20,6 +21,7 @@ djangorestframework-stubs==3.16.8
 djangorestframework_simplejwt==5.5.1
 drf-yasg==1.21.15
 flower==2.0.1
+gunicorn==25.1.0
 humanize==4.15.0
 idna==3.11
 inflection==0.5.1
